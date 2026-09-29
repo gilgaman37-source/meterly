@@ -1,0 +1,65 @@
+@base = http://localhost:8080
+@token = вставьте-jwt
+@meterId = вставьте-uuid-счетчика
+@requestId = вставьте-uuid-запроса-ocr
+
+### Регистрация
+POST {{base}}/api/auth/register
+Content-Type: application/json
+
+{"username":"alexm","email":"alex@example.com","password":"replace-with-a-long-password"}
+
+### Вход по имени пользователя или электронной почте
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"login":"alex@example.com","password":"replace-with-a-long-password"}
+
+### Создание газового счётчика
+POST {{base}}/api/meters
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"serialNumber":"GS-5510-2048","meterType":"GAS","description":"Основной газовый счётчик","region":"Московская область (демонстрационные данные)"}
+
+### Передача показания вручную
+POST {{base}}/api/meters/{{meterId}}/readings
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"value":123.45,"submittedAt":"2026-07-21T12:00:00Z","meterReset":false}
+
+### Добавление изображения в очередь OCR
+POST {{base}}/api/meters/{{meterId}}/readings/image
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=MeterBoundary
+
+--MeterBoundary
+Content-Disposition: form-data; name="image"; filename="meter.jpg"
+Content-Type: image/jpeg
+
+< ./meter.jpg
+--MeterBoundary--
+
+### Статус OCR
+GET {{base}}/api/reading-requests/{{requestId}}
+Authorization: Bearer {{token}}
+
+### Подтверждение или исправление OCR
+PATCH {{base}}/api/reading-requests/{{requestId}}/confirm
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"value":123.45}
+
+### История показаний с пагинацией
+GET {{base}}/api/meters/{{meterId}}/readings?page=0&size=20&sort=submittedAt,desc&source=IMAGE_OCR&status=COMPLETED
+Authorization: Bearer {{token}}
+
+### История всех показаний текущего пользователя
+GET {{base}}/api/readings?page=0&size=20&sort=submittedAt,desc&meterType=COLD_WATER
+Authorization: Bearer {{token}}
+
+### Сводка аналитика
+GET {{base}}/api/analytics/summary?from=2026-01-01&to=2026-12-31
+Authorization: Bearer {{token}}

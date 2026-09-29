@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Meterly: Backend",
+            "request": "launch",
+            "mainClass": "com.example.metermonitor.MeterMonitoringApplication",
+            "projectName": "meter-monitor",
+            "cwd": "${workspaceFolder}\\backend",
+            "preLaunchTask": "Meterly: Start PostgreSQL",
+            "env": {
+                "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot",
+                "DATABASE_URL": "jdbc:postgresql://localhost:5434/meters",
+                "DATABASE_USERNAME": "meters",
+                "DATABASE_PASSWORD": "meters",
+                "JWT_SECRET": "VGhpcy1pcy1hLWxvY2FsLWRldmVsb3BtZW50LXNlY3JldC1mb3ItbWV0ZXJseQ==",
+                "UPLOAD_DIRECTORY": "${workspaceFolder}\\backend\\data\\uploads",
+                "TESSDATA_PATH": "C:\\Program Files\\Tesseract-OCR\\tessdata",
+                "CORS_ALLOWED_ORIGINS": "http://localhost:3000,http://localhost:5173"
+            }
+        },
+        {
+            "type": "node-terminal",
+            "name": "Meterly: Frontend",
+            "request": "launch",
+            "command": "npm run dev",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "NEXT_PUBLIC_API_URL": "http://localhost:8080"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Meterly: Full stack local",
+            "configurations": ["Meterly: Backend", "Meterly: Frontend"],
+            "stopAll": true
+        }
+    ]
+}

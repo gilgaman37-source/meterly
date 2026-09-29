@@ -1,0 +1,23 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot",
+            "default": true
+        }
+    ],
+    "maven.executable.path": "C:\\tools\\apache-maven-3.9.9\\bin\\mvn.cmd",
+    "maven.terminal.useJavaHome": true,
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot",
+        "MAVEN_HOME": "C:\\tools\\apache-maven-3.9.9",
+        "TESSDATA_PATH": "C:\\Program Files\\Tesseract-OCR\\tessdata",
+        "DATABASE_URL": "jdbc:postgresql://localhost:5434/meters",
+        "DATABASE_USERNAME": "meters",
+        "DATABASE_PASSWORD": "meters",
+        "NEXT_PUBLIC_API_URL": "http://localhost:8080",
+        "PATH": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot\\bin;C:\\tools\\apache-maven-3.9.9\\bin;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\Program Files\\Tesseract-OCR;${env:PATH}"
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Meterly: Start PostgreSQL",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\.dev-env\\Start-Postgres.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Meterly: Stop PostgreSQL",
+            "type": "process",
+            "command": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe",
+            "args": ["compose", "stop", "postgres"],
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Meterly: Start backend",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\.dev-env\\Start-Backend.ps1"
+            ],
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Meterly: Start frontend",
+            "type": "npm",
+            "script": "dev",
+            "path": "${workspaceFolder}",
+            "options": {
+                "env": {
+                    "NEXT_PUBLIC_API_URL": "http://localhost:8080"
+                }
+            },
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Meterly: Backend tests",
+            "type": "process",
+            "command": "C:\\tools\\apache-maven-3.9.9\\bin\\mvn.cmd",
+            "args": ["test"],
+            "options": {
+                "cwd": "${workspaceFolder}\\backend",
+                "env": {
+                    "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot",
+                    "TESSDATA_PATH": "C:\\Program Files\\Tesseract-OCR\\tessdata"
+                }
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Meterly: Frontend tests",
+            "type": "npm",
+            "script": "test",
+            "path": "${workspaceFolder}",
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}
